@@ -4,18 +4,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Family Connect - Family Care Authority</title>
-    <!-- Tailwind CSS for styling -->
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
-    <!-- FontAwesome for clean icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body class="text-slate-800 font-sans min-h-screen flex flex-col justify-between relative bg-cover bg-center bg-no-repeat attachment-fixed" 
       style="background-image: url('https://www.adfca.gov.ae/-/media/Project/FCA/FCA/HomePage_Images/AboutUs_InnerPage.jpg');">
 
-    <!-- Dark tint overlay to ensure contract contrast -->
     <div class="absolute inset-0 bg-slate-900/40 z-0"></div>
 
-    <!-- Header with FCA Logo -->
     <header class="bg-white/95 backdrop-blur-md shadow-sm border-b border-slate-200/50 relative z-10">
         <div class="max-w-xl mx-auto px-4 py-4 flex justify-between items-center">
             <div class="flex items-center space-x-3">
@@ -25,17 +21,15 @@
         </div>
     </header>
 
-    <!-- Main Content App Card -->
     <main class="flex-grow flex items-center justify-center p-4 relative z-10">
         <div class="bg-white/95 backdrop-blur-md rounded-2xl shadow-2xl border border-white/20 max-w-md w-full p-6 md:p-8 space-y-6">
             
             <div class="text-center space-y-2">
                 <h1 class="text-2xl font-bold text-slate-900">Stay Connected</h1>
-                <p class="text-sm text-slate-600">Nurture your family bonds. Set up automated calendar reminders to call your loved ones regularly.</p>
+                <p class="text-sm text-slate-600">Nurture your family bonds. Set up automated calendar reminders or send direct messages instantly.</p>
             </div>
 
             <form id="reminderForm" class="space-y-5">
-                <!-- Step 1: Who to call -->
                 <div class="space-y-2">
                     <label class="block text-sm font-semibold text-slate-700">Who do you want to call?</label>
                     <div class="flex gap-2">
@@ -46,7 +40,6 @@
                             <input type="text" id="contactName" required placeholder="e.g., Mom and Dad" 
                                 class="w-full pl-10 pr-3 py-2.5 bg-slate-50/50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:bg-white transition-all text-sm">
                         </div>
-                        <!-- Native Phonebook Permissions Button -->
                         <button type="button" id="selectContactBtn" class="px-3 py-2.5 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-xl transition-colors text-sm font-medium flex items-center gap-1" title="Select from phonebook">
                             <i class="fa-solid fa-address-book text-emerald-600"></i>
                             <span class="hidden sm:inline">Contacts</span>
@@ -54,7 +47,6 @@
                     </div>
                 </div>
 
-                <!-- Step 2: Frequency Selector -->
                 <div class="space-y-2">
                     <label for="frequency" class="block text-sm font-semibold text-slate-700">How often would you like to call?</label>
                     <div class="relative">
@@ -71,7 +63,6 @@
                     </div>
                 </div>
 
-                <!-- Behavioral Nudge / Smart Advice Box -->
                 <div id="nudgeBox" class="bg-emerald-50/90 border border-emerald-100 rounded-xl p-4 flex gap-3 transition-all duration-300">
                     <div class="text-emerald-600 text-lg mt-0.5">
                         <i class="fa-solid fa-lightbulb"></i>
@@ -84,28 +75,34 @@
                     </div>
                 </div>
 
-                <!-- Step 3: Best Time -->
                 <div class="space-y-2">
                     <label for="reminderTime" class="block text-sm font-semibold text-slate-700">Preferred Time for Call</label>
                     <input type="time" id="reminderTime" value="19:00" required
                         class="w-full px-3 py-2.5 bg-slate-50/50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:bg-white transition-all text-sm">
                 </div>
 
-                <!-- Action Button -->
-                <button type="submit" class="w-full py-3 bg-emerald-600 hover:bg-emerald-700 text-white font-semibold rounded-xl shadow-md hover:shadow-lg transition-all flex items-center justify-center gap-2 cursor-pointer mt-2 text-sm">
-                    <i class="fa-solid fa-calendar-plus"></i> Add to My Calendar
-                </button>
+                <div class="border-t border-slate-100 my-4 pt-4 space-y-3">
+                    <p class="text-xs font-semibold text-slate-400 uppercase tracking-wide text-center">Choose Action</p>
+                    
+                    <div class="grid grid-cols-1 gap-2">
+                        <button type="submit" id="calendarSubmit" class="w-full py-3 bg-emerald-600 hover:bg-emerald-700 text-white font-semibold rounded-xl shadow-md hover:shadow-lg transition-all flex items-center justify-center gap-2 cursor-pointer text-sm">
+                            <i class="fa-solid fa-calendar-plus"></i> Add to My Calendar
+                        </button>
+
+                        <button type="button" id="msgSubmit" class="w-full py-3 bg-sky-600 hover:bg-sky-700 text-white font-semibold rounded-xl shadow-md hover:shadow-lg transition-all flex items-center justify-center gap-2 cursor-pointer text-sm">
+                            <i class="fa-brands fa-whatsapp text-base"></i> Send Hello Message Now
+                        </button>
+                    </div>
+                </div>
             </form>
 
         </div>
     </main>
 
-    <!-- Footer -->
     <footer class="bg-white/90 backdrop-blur-md py-4 border-t border-slate-200/50 text-center text-xs text-slate-500 relative z-10">
         <p>© 2026 Family Care Authority Abu Dhabi. Nurturing families, enriching communities.</p>
     </footer>
 
-    <!-- Logic Script -->
     <script>
         // Behavioral hints library mapping frequency to custom nudges
         const hints = {
@@ -147,84 +144,4 @@
         const nudgeText = document.getElementById('nudgeText');
         const contactInput = document.getElementById('contactName');
         const selectContactBtn = document.getElementById('selectContactBtn');
-
-        // Dynamic psychological steering mechanism
-        frequencySelect.addEventListener('change', (e) => {
-            const selection = e.target.value;
-            const data = hints[selection];
-            
-            nudgeBox.className = `${data.class} border rounded-xl p-4 flex gap-3 transition-all duration-300`;
-            nudgeTitle.innerText = data.title;
-            nudgeText.innerText = data.text;
-        });
-
-        // Contact Picker API Integration
-        selectContactBtn.addEventListener('click', async () => {
-            const props = ['name'];
-            const opts = { multiple: false };
-
-            if ('contacts' in navigator && 'ContactsManager' in window) {
-                try {
-                    const contact = await navigator.contacts.select(props, opts);
-                    if (contact && contact.length > 0 && contact[0].name) {
-                        contactInput.value = contact[0].name[0];
-                    }
-                } catch (err) {
-                    console.log("Contact picking cancelled or failed: ", err);
-                }
-            } else {
-                alert("Your browser or device doesn't support direct contact picking. Please type the name manually!");
-            }
-        });
-
-        // Form submission and iCalendar (.ics) File Generation
-        document.getElementById('reminderForm').addEventListener('submit', function(e) {
-            e.preventDefault();
-            
-            const name = contactInput.value;
-            const freq = frequencySelect.value;
-            const time = document.getElementById('reminderTime').value.replace(':', '');
-            
-            // Format time variables
-            const now = new Date();
-            const year = now.getFullYear();
-            const month = String(now.getMonth() + 1).padStart(2, '0');
-            const day = String(now.getDate()).padStart(2, '0');
-            
-            let rrule = "";
-            switch(freq) {
-                case 'DAILY': rrule = "FREQ=DAILY"; break;
-                case 'BIWEEKLY': rrule = "FREQ=WEEKLY;INTERVAL=1;BYDAY=SU,WE"; break;
-                case 'WEEKLY': rrule = "FREQ=WEEKLY;INTERVAL=1"; break;
-                case 'FORTNIGHTLY': rrule = "FREQ=WEEKLY;INTERVAL=2"; break;
-                case 'MONTHLY': rrule = "FREQ=MONTHLY;INTERVAL=1"; break;
-            }
-
-            // Build valid .ics content structure
-            const icsContent = [
-                "BEGIN:VCALENDAR",
-                "VERSION:2.0",
-                "PRODID:-//Family Care Authority//Family Connect//EN",
-                "BEGIN:VEVENT",
-                `UID:${Date.now()}@adfca.gov.ae`,
-                `DTSTAMP:${year}${month}${day}T000000Z`,
-                `DTSTART:${year}${month}${day}T${time}00`,
-                `SUMMARY:Call ${name} ❤️`,
-                "DESCRIPTION:This is a recurring reminder initiated via FCA Family Connect to nurture your family bonds.",
-                `RRULE:${rrule}`,
-                "END:VEVENT",
-                "END:VCALENDAR"
-            ].join("\r\n");
-
-            // Trigger the download of the file
-            const blob = new Blob([icsContent], { type: 'text/calendar;charset=utf-8' });
-            const link = document.createElement('a');
-            link.href = window.URL.createObjectURL(blob);
-            link.download = `Call_${name.replace(/\s+/g, '_')}_Reminder.ics`;
-            document.body.appendChild(link);
-            link.click();
-            document.body.removeChild(link);
-        });
-    </script>
-</body>
-</html>
+        const msgSubmitBtn = document.getElementById('msgSubmit');
